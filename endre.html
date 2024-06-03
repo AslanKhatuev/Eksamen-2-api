@@ -3,9 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit Player</title>
 </head>
 <body>
-    
+    <div id="edit-container">
+        <form id="editForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="position">Position:</label>
+                <input type="text" id="position" name="position">
+            </div>
+            <div class="form-group">
+                <label for="team">Team:</label>
+                <input type="text" id="team" name="team">
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age">
+            </div>
+            <button type="button" onclick="saveChanges()">Save Changes</button>
+            <button type="button" onclick="goHome()">Forside</button>
+        </form>
+    </div>
+    <script src="endre.js"></script>
 </body>
 </html>
+
+
+

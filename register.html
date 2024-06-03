@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registreringsskjema</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column; 
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        section {
+            background-color: yellow;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        h1 {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registrer deg her</h1>
+    <section>
+        <form id="signupForm">
+            <div class="input">
+                <label for="name">Navn</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="input">
+                <label for="email">E-post</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input">
+                <label for="password">Passord</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input">
+                <label for="role">Rolle</label>
+                <select id="role" name="role" required>
+                    <option value="Admin">Admin</option>
+                    <option value="User">User</option>
+                </select>
+            </div>
+            <button type="submit">Registrer</button>
+        </form>
+    </section>
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    const userData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        role: document.getElementById('role').value
+    };
+
+    console.log("Sender registrerings data for:", userData.name, userData.email);
+
+    fetch("https://crudapi.co.uk/app/upLoad", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer VQFEfp3J5JMFnluXgYW1bwJfB1orB2DSBIEd2I_dm9gNoK7RlA",
+        },
+        body: JSON.stringify(userData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            console.log('Registrering fullført:', data.message);
+            alert('Registrering fullført!');
+        } else {
+            throw new Error('Registrering feilet: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Det oppstod feil med registrering:', error);
+        alert('Registrering feilet! ' + error.message);
+    });
+});
+    </script>
+</body>
+</html>
